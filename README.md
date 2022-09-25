@@ -30,14 +30,17 @@ macros is not used, nothing is printed (this included whitespace, so the layout 
 if you omit data). All macros should be used in the preamble - that is, before `\begin{document}`.
 
 The available macros are:
-`\title {...}`
-`\subtitle {...}`
-`\thesistype {...}`
-`\author {...}`
-`\idnumber {...}`
-`\supervisors {...}`
-`\version {...}`
-`\citydate {...}`
-`\institutioninfo {...}`
-`\secondinstitutionlogo [...]{...}`
-`\secondinstitutioninfo {...}`
+- `\title {...}`
+- `\subtitle {...}`
+- `\thesistype {...}`
+- `\author {...}`
+- `\idnumber {...}`
+- `\supervisors {...}`
+- `\version {...}`
+- `\citydate {...}`
+- `\institutioninfo {...}`
+- `\secondinstitutionlogo [...]{...}`
+- `\secondinstitutioninfo {...}`
+
+## Contributing
+If you have any errors or suggestions, feel free to file an issue on GitHub (https://github.com/tdoel/tue-titlepage/issues) or just send me an e-mail. If you are in the TU/e mail server, you should be able to find out my email address :)
