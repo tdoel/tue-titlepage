@@ -1,5 +1,5 @@
 \section{Quick reference}
-The tu/e.sty file provides eleven macros that allow you to specify information for the titlepage. You are free to only use the macro's that you want to display, you can simply omit the others. If one of these macros is not used, nothing is printed (this included whitespace, so the layout will not be disturbed if you omit data). All macros should be used in the preamble - that is, before |\begin{document}|.
+The tu/e.sty file provides eleven macros that allow you to specify information for the title page. You are free to only use the macro's that you want to display, you can simply omit the others. If one of these macros is not used, nothing is printed (this included whitespace, so the layout will not be disturbed if you omit data). All macros should be used in the preamble - that is, before |\begin{document}|.
 
 \renewcommand{\arraystretch}{1.2}
 \begin{tabularx}{\textwidth}{lX} \toprule
@@ -20,7 +20,7 @@ The tu/e.sty file provides eleven macros that allow you to specify information f
 \section{Package installation}
 In any case, you need to download package first.
 \begin{itemize}
-  \item Download the GitHub repository (green button that reads `Code' and then the `Download ZIP' option) to a path of your choice. Extract the ZIP with your favourite unzipping tool.
+  \item Download the GitHub repository here: \url{https://github.com/tdoel/tue-titlepage} (green button that reads `Code' and then the `Download ZIP' option) to a path of your choice. Extract the ZIP with your favourite unzipping tool.
   \item Alternatively, if you are into that sort of stuff, you may also use the command line:\\
   |git clone https://github.com/tdoel/tue-titlepage.git|
 \end{itemize}
@@ -28,11 +28,11 @@ In any case, you need to download package first.
 \subsection{For new documents}
 \begin{enumerate}
   \item Download the package as described above.
-  \item |main.tex| contains a template that you can use to get started. To get rid of this documentation, simply delete the line |\input{chapter/documentation}|. The result should be an empty document with a titlepage where some (but not all!) macros are already in use. This template also has loaded all the recommended packages that are discussed in \cref{sec:recommended-packages}.
+  \item |main.tex| contains a template that you can use to get started. To get rid of this documentation, simply delete the line |\input{chapter/documentation}|. The result should be an empty document with a title page where some (but not all!) macros are already in use. This template also has loaded all the recommended packages that are discussed in \cref{sec:recommended-packages}.
 \end{enumerate}
 
 \subsection{For existing documents}
-It may very well be that you want to use this titlepage into an existing document, as finishing touch. After all, content before formatting, not? Luckily, that is also possible.
+It may very well be that you want to use this title page into an existing document, as finishing touch. After all, content before formatting, not? Luckily, that is also possible.
 
 \begin{enumerate}
   \item Download the package as described above.
@@ -48,7 +48,7 @@ This package supports a few options in the |key=value| syntax that is used by ma
 You can specify the amount to which your document adheres to the official TU/e guidelines with respect to its corporate identity.
 
 \begin{tabularx}{\textwidth}{llX} \toprule
-  |none| & & Only the titlepage is added. No additional settings are changed. \\
+  |none| & & Only the title page is added. No additional settings are changed. \\
   |normal| & (default) & The font is set to the default sans serif font provided by \LaTeX{}. This is very similar to the official TU/e font, but not identical. \\
   |full| & & Sets the font to the official TU/e font. This requires the availability of the |noto| package which is not included in all standard \LaTeX{} installations. \\ \bottomrule
 \end{tabularx}
@@ -72,7 +72,7 @@ Sometimes, your thesis is written partly externally, at another university or re
 
 \section{Recommended packages}
 \label{sec:recommended-packages}
-This section has nothing todo with the titlepage. It introduces a few packages that every academic writer should know about - in the opinion of the author at least. You are of course free to entirely skip this section if you want to.
+This section has nothing todo with the title page. It introduces a few packages that every academic writer should know about - in the opinion of the author at least. You are of course free to entirely skip this section if you want to.
 
 %load the example command
 \input{chapter/examples/prerequisits}
