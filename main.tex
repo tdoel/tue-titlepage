@@ -1,0 +1,48 @@
+\documentclass{article}
+
+% the recommended packages discussed in section 4. Keep them!
+\usepackage{biblatex}
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{siunitx}
+
+% some packages required for typesetting a nice manual
+\usepackage{tabularx}
+\usepackage[a4paper]{geometry}
+\usepackage{listings}
+\lstset{language=tex, frame=single, basicstyle=\small}
+\usepackage{shortvrb}
+\MakeShortVerb{\|}
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
+
+% load the titlepage providing package. Mind the slash!
+\usepackage{tu/e}
+
+% its good practice to always load the ~ref packages last, in this order:
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,citecolor=red}
+\usepackage[nameinlink]{cleveref}
+
+% Use these macros to supply information for on your titlepage. The must be
+% placed in the preamble! You can safely omit any of them if you don't want to
+% print that specific bit of information to the titlepage.
+\title{TU/e themed titlepage}
+\subtitle{Mostly corporate identity proof}
+\thesistype{Manual}
+\idnumber{0987654}
+\author{T.M. van den Doel}
+\supervisors{Supervisor\\dr.ir Un Supervised}
+\version{Draft version}
+\citydate{Eindhoven, September 2022}
+\institutioninfo{Department of Applied Physics\\Optionally, specify a research group}
+
+
+\begin{document}
+
+\tableofcontents
+
+% just delete this to get rid of the documentation and start your own project
+\input{chapter/documentation}
+
+\end{document}

@@ -1,0 +1,176 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tu/e}[2022/09/21 TU/e (mostly) corporate identity proof thesis]
+
+% load dependencies
+\RequirePackage{graphicx}
+\RequirePackage{setspace}
+\RequirePackage{xkeyval}
+\RequirePackage{ifthen}
+
+% depending on whether or not parskip is loaded, some adjustments have to be made
+\@ifpackageloaded{parskip}{
+  \newcommand{\titlelowerruleseparator}{5mm}
+  \newcommand{\thesisseparator}{0mm}
+}{
+  \newcommand{\titlelowerruleseparator}{1mm}
+  \newcommand{\thesisseparator}{2mm}
+}
+
+% define and parse package options
+\newcommand{\unknownvalue}[1]{\PackageWarning{tu/e}{Unknown value '#1' ignored (\CurrentOption).}}
+
+% corporate-identity = normal [default], full, none
+\newcommand{\loadnoto}{false}
+\newcommand{\loadsffamily}{true}
+\DeclareOptionX{corporate-identity}{
+  \ifthenelse{\equal{#1}{normal}}{ % corporate-identity=normal
+    %use sans-serif font
+    \renewcommand{\loadnoto}{false}
+    \renewcommand{\loadsffamily}{true}
+  }{\ifthenelse{\equal{#1}{full}}{ % corporate-identity=full
+    %use noto font
+    \renewcommand{\loadnoto}{true}
+    \renewcommand{\loadsffamily}{false}
+  }{\ifthenelse{\equal{#1}{none}}{ % corporate-identity=none
+    \renewcommand{\loadnoto}{false}
+    \renewcommand{\loadsffamily}{false}
+  }{
+    \unknownvalue{#1}
+  }}}
+}
+
+% titlepage = true [default], false
+\newcommand{\separator}{\vfill}
+\newcommand{\opentitle}{\begin{titlepage}}
+\newcommand{\closetitle}{\end{titlepage}}
+
+\DeclareOptionX{titlepage}{
+  \ifthenelse{\equal{#1}{true}}{    % titlepage=true
+    % these renews are redundant, but left here for readability
+    \renewcommand{\separator}{\vfill}
+    \renewcommand{\opentitle}{\begin{titlepage}}
+    \renewcommand{\closetitle}{\end{titlepage}}
+  }{\ifthenelse{\equal{#1}{false}}{ % titlepage=false
+    \renewcommand{\separator}{\vspace{1cm}}
+    \renewcommand{\opentitle}{}
+    \renewcommand{\closetitle}{\vspace{2cm}}
+  }{
+    \unknownvalue{#1}
+  }}
+}
+
+% affiliation = single [default], double
+\newcommand{\institutionwidth}{\textwidth}
+\newcommand{\affiliation}{single}
+\DeclareOptionX{affiliation}{
+  \ifthenelse{\equal{#1}{single}}{ % affiliation=single
+    % this renew is redundant, but left here for readability
+    \renewcommand{\affiliation}{single}
+  }{\ifthenelse{\equal{#1}{double}}{ % affiliation=double
+    \renewcommand{\affiliation}{double}
+  }{
+    \unknownvalue{#1}
+  }}
+}
+
+\ProcessOptionsX\relax
+
+\ifthenelse{\equal{\loadnoto}{true}}{
+  \usepackage{noto}
+}{}
+\ifthenelse{\equal{\loadsffamily}{true}}{
+  \renewcommand{\familydefault}{\sfdefault}
+}{}
+
+\newcommand{\printtitle}{}
+\newcommand{\printsubtitle}{}
+\newcommand{\printthesistype}{}
+\newcommand{\printauthor}{}
+\newcommand{\printidnumber}{}
+\newcommand{\printsupervisors}{}
+\newcommand{\printversion}{}
+\newcommand{\printcitydate}{}
+\newcommand{\printinstitutioninfo}{}
+\newcommand{\printsecondinstitutioninfo}{}
+\newcommand{\printsecondinstitutionlogo}{}
+
+\ifthenelse{\equal{\affiliation}{single}}{
+  \newcommand{\printinstitution}{
+    \begin{minipage}{\textwidth}
+      \centering
+      \includegraphics[height=2cm]{tu/logo}\par
+      \printinstitutioninfo
+    \end{minipage}
+  }
+}{
+  \newcommand{\printinstitution}{
+    \begin{minipage}[t]{0.5\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{tu/logo}\par
+      \printinstitutioninfo
+    \end{minipage}%
+    \begin{minipage}[t]{0.5\textwidth}
+      \centering
+      \printsecondinstitutionlogo\par
+      \printsecondinstitutioninfo
+    \end{minipage}
+  }
+}
+
+\renewcommand{\title}[1]{\renewcommand{\printtitle}{%
+\rule{\textwidth}{1pt}
+{\Huge\setstretch{0.8}\textsc{#1}\par}%
+\printsubtitle%
+\rule[\titlelowerruleseparator]{\textwidth}{1pt}\\%
+\vspace{\thesisseparator}\printthesistype\separator%
+}}
+\newcommand{\subtitle}[1]{\renewcommand{\printsubtitle}{%
+{\huge\setstretch{0.8}\textsc{#1}\par}%
+}}
+\newcommand{\thesistype}[1]{\renewcommand{\printthesistype}{%
+  {\Large #1}
+}}
+\renewcommand{\author}[1]{\renewcommand{\printauthor}{%
+  {\Large #1\par}%
+  \printidnumber
+  \separator%
+}}
+\newcommand{\idnumber}[1]{\renewcommand{\printidnumber}{%
+  {\large #1\par}%
+}}
+\newcommand{\supervisors}[1]{\renewcommand{\printsupervisors}{
+  {\large #1\par}%
+  \separator%
+}}
+\newcommand{\version}[1]{\renewcommand{\printversion}{
+  {\large #1\par}%
+  \separator%
+}}
+\newcommand{\citydate}[1]{\renewcommand{\printcitydate}{
+  {\large #1\par}%
+  \separator%
+}}
+\newcommand{\institutioninfo}[1]{\renewcommand{\printinstitutioninfo}{
+  #1\par%
+}}
+\ifthenelse{\equal{\affiliation}{single}}{
+  \newcommand{\secondinstitutioninfo}[1]{%
+    \PackageWarning{tu/e}{To show two institutions, load the tu/e package with the option `affiliation=double`}%
+  }
+  \newcommand{\secondinstitutionlogo}[2][dummy]{%
+    \PackageWarning{tu/e}{To show two institutions, load the tu/e package with the option `affiliation=double`}%
+  }
+}{
+  \newcommand{\secondinstitutioninfo}[1]{
+    \renewcommand{\printsecondinstitutioninfo}{
+      #1\par%
+    }
+  }
+  \newcommand{\secondinstitutionlogo}[2][width=\textwidth]{
+    \renewcommand{\printsecondinstitutionlogo}{
+      \includegraphics[#1]{#2}
+    }
+  }
+}
+
+\AtBeginDocument{\input{tu/titlepage}}

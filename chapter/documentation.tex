@@ -1,0 +1,133 @@
+\section{Quick reference}
+The tu/e.sty file provides eleven macros that allow you to specify information for the titlepage. You are free to only use the macro's that you want to display, you can simply omit the others. If one of these macros is not used, nothing is printed (this included whitespace, so the layout will not be disturbed if you omit data). All macros should be used in the preamble - that is, before |\begin{document}|.
+
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{lX} \toprule
+  |\title{...}| & Sets the main title of the document. \\
+  |\subtitle{...}| & Sets the subtitle of the document. This will not be printed if |\title| is not set. \\
+  |\thesistype{...}| & Prints a small line of text below the title, meant to indicate what kind of report it is. Common options will be |Bachelor's Thesis|, |Master's Thesis| and so on. Will not be printed if |\title| is not set. \\
+  |\author{...}| & Sets the name of the author. Multiple authors may be separated by |\\|.\\
+  |\idnumber{...}| & Sets the ID number of the author. Will not be printed if |\author| is not set. \\
+  |\supervisors{...}| & Sets the supervisors of the project. Typically, you'll want to enter something like |Supervisor:\\prof.dr. Firstname Lastname|. Multiple supervisors may be separated by |\\|.\\
+  |\version{...}| & Sets the version of the document. Commonly used to specify that it is a |Draft version|.\\
+  |\citydate{...}| & Sets the place and date where the document is finalized, e.g. |Eindhoven, September 2022|. \\
+  |\institutioninfo{...}| & Text entered here will be printed below TU/e logo. Typically, you'll want to specify your department and research group here. Separate them by |\\| to print on two lines. \\
+  |\secondinstitutionlogo[...]{...}| & To use this option, the tu/e package must be loaded with |affiliation=double| as option. This allows you to print the logo of a second university or research institution next to the TU/e logo. The arguments are identical two those of |\includegraphics|. The (optional) first one can be used to specify how the logo should be printed. Default is |width=\textwidth|. The second is the path of the logo (as usual, with the extension omitted).\\
+  |\secondinstitutioninfo{...}| & Same as |\institutioninfo| but then for the second institution. \\
+  \bottomrule
+\end{tabularx}
+
+\section{Package installation}
+In any case, you need to download package first.
+\begin{itemize}
+  \item Download the GitHub repository (green button that reads `Code' and then the `Download ZIP' option) to a path of your choice. Extract the ZIP with your favourite unzipping tool.
+  \item Alternatively, if you are into that sort of stuff, you may also use the command line:\\
+  |git clone https://github.com/tdoel/tue-titlepage.git|
+\end{itemize}
+
+\subsection{For new documents}
+\begin{enumerate}
+  \item Download the package as described above.
+  \item |main.tex| contains a template that you can use to get started. To get rid of this documentation, simply delete the line |\input{chapter/documentation}|. The result should be an empty document with a titlepage where some (but not all!) macros are already in use. This template also has loaded all the recommended packages that are discussed in \cref{sec:recommended-packages}.
+\end{enumerate}
+
+\subsection{For existing documents}
+It may very well be that you want to use this titlepage into an existing document, as finishing touch. After all, content before formatting, not? Luckily, that is also possible.
+
+\begin{enumerate}
+  \item Download the package as described above.
+  \item Copy the |tu| directory (only that one) to you \LaTeX{} project. It should be placed in the same directory as your main \LaTeX{}-file!
+  \item Include the package with |\usepackage{tu/e}|. Don't forget the slash! Optionally, can provide some options to the |\usepackage| command. The options are described in \cref{sec:package-options}.
+\end{enumerate}
+
+\section{Package options}
+\label{sec:package-options}
+This package supports a few options in the |key=value| syntax that is used by many packages, like so: |\usepackage[key1=value1, key2=value2]{tu/e}|. Below, the options and their possible values are explained. If an option is omitted, the default value is used.
+
+\subsection{corporate-identity}
+You can specify the amount to which your document adheres to the official TU/e guidelines with respect to its corporate identity.
+
+\begin{tabularx}{\textwidth}{llX} \toprule
+  |none| & & Only the titlepage is added. No additional settings are changed. \\
+  |normal| & (default) & The font is set to the default sans serif font provided by \LaTeX{}. This is very similar to the official TU/e font, but not identical. \\
+  |full| & & Sets the font to the official TU/e font. This requires the availability of the |noto| package which is not included in all standard \LaTeX{} installations. \\ \bottomrule
+\end{tabularx}
+
+\subsection{titlepage}
+By default, the title is printed on a separate page. This will be fine for most articles and reports, but for very small reports you may want to use a small title region on the frontpage and start with the content immediately afterwards. That can be achieved by this option.
+
+\begin{tabularx}{\textwidth}{llX} \toprule
+  |true| & (default) & Prints the title on a separate page without page number. \\
+  |false| & & Prints the title elements below each other, without filling the first page entirely. The first page will also receive a page number. If you are using this option, you are strongly advised to only print very limited information in the title region. If you use all available macros, the first page will nearly be filled. \\ \bottomrule
+\end{tabularx}
+
+\subsection{affiliation}
+Sometimes, your thesis is written partly externally, at another university or research institution. In such a case, you may want to have both the TU/e logo and the other institution's logo on the front page. This can be achieved with the |affiliation| option.
+
+\begin{tabularx}{\textwidth}{llX} \toprule
+  |single| & (defeault) & Prints the TU/e logo centered. Optionally, some extra info such as the department and research group you are in, can be provided using |\institutioninfo{}|. \\
+  |double| & & Prints the TU/e logo and another logo side to side. The other logo can be set with |\secondinstitutionlogo[imgspec]{path}| where |imgspec| is the settings for printing that are passed to |\includegraphics|. The default value is |width=\textwidth|. |path| is the path to the image file of the logo, relative to the \LaTeX{}-root. For the second institution |\secondinstitutioninfo{}| can be used to specify a department and/or research group, similar to |\institutioninfo{}|. \\
+  \bottomrule
+\end{tabularx}
+
+\section{Recommended packages}
+\label{sec:recommended-packages}
+This section has nothing todo with the titlepage. It introduces a few packages that every academic writer should know about - in the opinion of the author at least. You are of course free to entirely skip this section if you want to.
+
+%load the example command
+\input{chapter/examples/prerequisits}
+
+\subsection{siunitx}
+A naive way of formatting units would be something like this:
+
+\example{chapter/examples/siunitx-wrong}
+
+Apart from that the code does not look very nice, there is also a real problem here: the space between the number and the unit is breakable, and also an be lengthened by \LaTeX{} if it attempts to fill a line. There are workarounds for this, but that can get tedious quite quickly. A better approach would be the use of the |siunitx| package.
+
+\example{chapter/examples/siunitx}
+
+There are also tons of other options, including a special column type for use in tables, to properly align multiple numeric values. Checkout the package documentation at \url{https://ctan.org/pkg/siunitx}.
+
+\subsection{booktabs}
+Plain \LaTeX{} tables are ugly - period. Luckily, the |booktabs| packages provides an extremely simple set of macros to remedy this ugliness. The best tip, from the booktabs package documentation, is to \emph{never ever} use vertical lines in tables. Combined with the |booktabs| macros, you can create shiny tables effortless.
+
+\example{chapter/examples/booktabs}
+
+Checkout the documentation at CTAN: \url{https://www.ctan.org/pkg/booktabs/}.
+
+\subsection{biblatex}
+|biblatex| is much more versatile and provides more options compared to packages like |bibtex| or |natbib|. It makes use of the same .bib file that other packages also use, so you will not need to convert anything to switch to |biblatex|.
+
+Overleaf provides an excellent tutorial for getting started with |biblatex|: \url{https://www.overleaf.com/learn/latex/Bibliography_management_in_LaTeX}.
+
+You can also checkout the documentation at CTAN: \url{https://www.ctan.org/pkg/biblatex}.
+
+\subsection{hyperref}
+You probably know this one, but I am gonna mention it anyway. It turns cross references, citations and the table of contents into hyperlinks, enabling to click your way through the document. However, the default output is quite ugly. Luckily, |hyperref| also supports nicer markup:
+\begin{lstlisting}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks   = true, % Colours links instead of ugly boxes
+  urlcolor     = blue, % Colour for external hyperlinks
+  linkcolor    = blue, % Colour of internal links
+  citecolor    = red   % Colour of citations
+}
+\end{lstlisting}
+Typically, hyperref should be loaded as the last package.
+
+CTAN: \url{https://ctan.org/pkg/hyperref}
+
+
+\subsection{cleveref}
+This package allows you to consistently refer to figures, tables and the lot, without having to think too much about what type it was again. The very short explanation is that instead of |\ref{...}| you can now use |\cref{...}| mid sentence and |\Cref{...}| at the beginning of a sentence. This will provide you with consistent formatting of your cross references. Typically, cleveref must be loaded as the last package. This also goes for hyperref, the desired loading order is hyperref, cleveref.
+
+Read more on CTAN: \url{https://ctan.org/pkg/cleveref}
+
+\subsection{parskip}
+If you ever find yourself typing your document full with |\noindent|s and |\\|s, you should consider using the |parskip| package. It allows you to write text like so:
+
+\example{chapter/examples/parskip}
+
+In other words, you can just use blank lines to separate your paragraphs.
+
+You can find the package documentation at CTAN: \url{https://www.ctan.org/pkg/parskip}.

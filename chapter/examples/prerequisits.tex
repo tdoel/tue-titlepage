@@ -1,0 +1,14 @@
+\newcommand{\example}[1]{
+  \begin{minipage}{0.49\textwidth}
+    \lstinputlisting{#1}
+  \end{minipage}\hspace{0.02\textwidth}%
+  \begin{minipage}{0.49\textwidth}
+    \setlength{\parskip}{\documentparskip}
+    \input{#1}
+  \end{minipage}
+}
+
+% sadly, minipage changes the parskip. This is an ugly fix, but works for this
+% document.
+\newlength{\documentparskip}
+\setlength{\documentparskip}{\parskip}
